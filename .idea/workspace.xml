@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6f3a38f0-abdc-422f-a85a-14124b369911" name="Changes" comment="" />
+    <list default="true" id="6f3a38f0-abdc-422f-a85a-14124b369911" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,6 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -31,7 +35,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/fanma/OneDrive/Рабочий стол/just-a-bank",
+    "last_opened_file_path": "C:/Users/fanma/OneDrive/Рабочий стол/just-a-bank/source",
+    "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -49,6 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1675010278770</updated>
       <workItem from="1675010279781" duration="385000" />
+      <workItem from="1675010680476" duration="307000" />
     </task>
     <servers />
   </component>

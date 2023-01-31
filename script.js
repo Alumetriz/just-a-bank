@@ -66,10 +66,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 
-const displayTransactions = function (transactions) {
+const displayTransactions = function (transactions, sort = false) {
     containerTransactions.innerHTML = '';
 
-    transactions.forEach((trans, index) => {
+    const transacs = sort ? transactions.slice().sort((x, y) => x - y) : transactions;
+
+    transacs.forEach((trans, index) => {
         const transType = trans > 0 ? 'deposit' : 'withdrawal';
 
         const transactionRow =
@@ -85,7 +87,7 @@ const displayTransactions = function (transactions) {
     });
 }
 
-function createNicknames (accounts) {
+function createNicknames(accounts) {
     accounts.forEach((acc) => {
         acc.nickname = acc.userName
             .toLowerCase()
@@ -145,7 +147,7 @@ btnLogin.addEventListener('click', function (e) {
         containerApp.style.opacity = 100;
         labelWelcome.textContent =
             `Рады, что вы снова с нами, ${
-            currentAccount.userName.split(' ')[0]}!`;
+                currentAccount.userName.split(' ')[0]}!`;
 
         // Clear inputs
         inputLoginUsername.value = '';
@@ -175,5 +177,45 @@ btnTransfer.addEventListener('click', function (e) {
 
         updateUi(currentAccount);
     }
-})
+});
 
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault();
+    const closeCurrentAccountNickname = inputCloseUsername.value;
+    const closeCurrentAccountUserPin = Number(inputClosePin.value);
+
+    if (closeCurrentAccountNickname === currentAccount.nickname &&
+        closeCurrentAccountUserPin === currentAccount.pin
+    ) {
+        const currentAccountIndex = accounts.findIndex((account) =>
+            account.nickname === currentAccount.nickname);
+
+        accounts.splice(currentAccountIndex, 1);
+
+        containerApp.style.opacity = 0;
+        labelWelcome.textContent = 'Войдите в свой аккаунт';
+    }
+    inputCloseUsername.value = '';
+    inputClosePin.value = '';
+});
+
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+    const loanAmount = Number(inputLoanAmount.value);
+
+    if (loanAmount > 0 &&
+        currentAccount.transactions.some((trans) =>
+            trans >= loanAmount * 10 / 100)
+    ) {
+        currentAccount.transactions.push(loanAmount);
+        updateUi(currentAccount);
+    }
+    inputLoanAmount.value = '';
+});
+
+let transSorted = false;
+btnSort.addEventListener('click', function (e) {
+    e.preventDefault();
+    displayTransactions(currentAccount.transactions, !transSorted);
+    transSorted = !transSorted;
+});

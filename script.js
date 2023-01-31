@@ -66,10 +66,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 
-const displayTransactions = function (transactions) {
+const displayTransactions = function (transactions, sort = false) {
     containerTransactions.innerHTML = '';
 
-    transactions.forEach((trans, index) => {
+    const transacs = sort ? transactions.slice().sort((x, y) => x - y) : transactions;
+
+    transacs.forEach((trans, index) => {
         const transType = trans > 0 ? 'deposit' : 'withdrawal';
 
         const transactionRow =
@@ -197,3 +199,23 @@ btnClose.addEventListener('click', function (e) {
     inputClosePin.value = '';
 });
 
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+    const loanAmount = Number(inputLoanAmount.value);
+
+    if (loanAmount > 0 &&
+        currentAccount.transactions.some((trans) =>
+            trans >= loanAmount * 10 / 100)
+    ) {
+        currentAccount.transactions.push(loanAmount);
+        updateUi(currentAccount);
+    }
+    inputLoanAmount.value = '';
+});
+
+let transSorted = false;
+btnSort.addEventListener('click', function (e) {
+    e.preventDefault();
+    displayTransactions(currentAccount.transactions, !transSorted);
+    transSorted = !transSorted;
+});

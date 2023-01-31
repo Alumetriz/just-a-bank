@@ -85,7 +85,7 @@ const displayTransactions = function (transactions) {
     });
 }
 
-function createNicknames (accounts) {
+function createNicknames(accounts) {
     accounts.forEach((acc) => {
         acc.nickname = acc.userName
             .toLowerCase()
@@ -145,7 +145,7 @@ btnLogin.addEventListener('click', function (e) {
         containerApp.style.opacity = 100;
         labelWelcome.textContent =
             `Рады, что вы снова с нами, ${
-            currentAccount.userName.split(' ')[0]}!`;
+                currentAccount.userName.split(' ')[0]}!`;
 
         // Clear inputs
         inputLoginUsername.value = '';
@@ -175,5 +175,25 @@ btnTransfer.addEventListener('click', function (e) {
 
         updateUi(currentAccount);
     }
-})
+});
+
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault();
+    const closeCurrentAccountNickname = inputCloseUsername.value;
+    const closeCurrentAccountUserPin = Number(inputClosePin.value);
+
+    if (closeCurrentAccountNickname === currentAccount.nickname &&
+        closeCurrentAccountUserPin === currentAccount.pin
+    ) {
+        const currentAccountIndex = accounts.findIndex((account) =>
+            account.nickname === currentAccount.nickname);
+
+        accounts.splice(currentAccountIndex, 1);
+
+        containerApp.style.opacity = 0;
+        labelWelcome.textContent = 'Войдите в свой аккаунт';
+    }
+    inputCloseUsername.value = '';
+    inputClosePin.value = '';
+});
 
